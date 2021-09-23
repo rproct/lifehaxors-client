@@ -1,21 +1,25 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import io from 'socket.io-client';
-// import socketService from './services/socket';
+import socketService from './services/socket';
 
-const socket = io('http://localhost:9000')
-class App extends React.Component{
-  constructor(props: any) {
-    super(props);
+// const socket = io('http://localhost:9000')
+function App(){
+    const connectSocket = async () => {
+        const socket = await socketService
+            .connect('http://localhost:9000')
+            .catch((err) => {
+                console.log("Error: ", err);
+            });
+    };
 
-    this.state = {currentComponent: 'welcome'}
-  }
+    useEffect(() => {
+        connectSocket();
+    }, []);
 
-  render() {
-    return (
-      <div></div>
-    )
-  }
+    return(
+        <div></div>
+    );
 }
 
 export default App;
