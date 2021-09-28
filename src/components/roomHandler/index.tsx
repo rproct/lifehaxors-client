@@ -1,11 +1,10 @@
-import { userInfo } from 'os';
-import React, {useContext, useEffect, useState} from 'react';
-import gameContext, {IPlayer, IGameContext} from '../../gameContext';
+import React, {useContext, useState} from 'react';
+import gameContext from '../../gameContext';
 import gameService from '../../services/game';
 import socketService from '../../services/socket';
 
 export function RoomHandler(){
-    const {roomCode, setRoomCode, playerList, setPlayerList} = useContext(gameContext)
+    const {roomCode, setRoomCode, setPlayerList} = useContext(gameContext)
     const [name, setName] = useState("");
     const [isJoining, setIsJoining] = useState(false);
 
@@ -15,8 +14,8 @@ export function RoomHandler(){
     };
 
     const roomChangeHandler = (e: React.ChangeEvent<any>) => {
-        const value = e.target.value.toUpperCase();
-        setRoomCode(value);
+        const value = e.target.value;
+        setRoomCode(value.toUpperCase());
     }
 
     const createRoom = async () => {
@@ -72,8 +71,8 @@ export function RoomHandler(){
             {name !== "" && 
                 <div>
                     <input placeholder="Room Code" onChange={roomChangeHandler}/>
-                    {(roomCode === "" || roomCode.length < 4) && <button onClick={createRoom} disabled={isJoining}>{isJoining ? "Creating Room..." : "Create Room"}</button>}
-                    {roomCode.length === 4 && <button onClick={joinRoom} disabled={isJoining}>{isJoining ? "Joining Room..." : "Join Room"}</button>}
+                    {(roomCode === "" || roomCode.length < 4) && <button type="submit" onClick={createRoom} disabled={isJoining}>{isJoining ? "Creating Room..." : "Create Room"}</button>}
+                    {roomCode.length === 4 && <button type="submit" onClick={joinRoom} disabled={isJoining}>{isJoining ? "Joining Room..." : "Join Room"}</button>}
                 </div>
             }
         </div>
