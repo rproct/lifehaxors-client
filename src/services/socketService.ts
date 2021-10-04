@@ -1,8 +1,8 @@
 import {io, Socket} from 'socket.io-client';
 import {DefaultEventsMap} from 'socket.io-client/build/typed-events';
 
-class SocketService {
-    public socket: Socket | null = null;
+class SocketService{
+    private socket: Socket | null = null;
 
     public connect(url: string): Promise<Socket<DefaultEventsMap, DefaultEventsMap>>{
         return new Promise((rs, rj) => {
@@ -15,10 +15,14 @@ class SocketService {
             });
 
             this.socket.on('connect_error', (err) => {
-                console.log(err);
                 rj(err);
-            })
+            });
         });
+    }
+
+    public getSocket(){
+        if(this.socket)
+            return this.socket;
     }
 }
 
