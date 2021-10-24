@@ -3,8 +3,7 @@ interface IGame{
     players: IPlayer[];
     round: number;
     mode: 'lobby' | 'question' | 'list' | 'answer' | 'vote';
-    questions: IResponse[];
-    houseItems: string[];
+    questions: IQuestion[];
     answers: IResponse[];
 }
 
@@ -17,6 +16,10 @@ interface IPlayer{
 interface IResponse{
     id: string;
     response: string;
+}
+
+interface IQuestion extends IResponse{
+    houseItems: string[];
 }
 
 type GameState = {

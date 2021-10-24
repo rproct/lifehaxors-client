@@ -50,16 +50,28 @@ class GameService {
         socket.emit("generatePairs")
     }
 
-    public async getPair(socket: Socket, listener: (pair: any) => void){
-        socket.on("getPair", (pair) => listener(pair));
+    public async addListItems(socket: Socket, list: string[]){
+        socket.emit("addListItems", {houseItems: list})
     }
 
-    public async sendList(socket: Socket, list: string[], recipient: string){
-        socket.emit("sendList", {list: list, recipient: recipient});
+    public async getPlayersReady(socket: Socket, listener: (num: number) => void){
+        socket.on("playerReady", (num) => listener(num.data))
     }
 
-    public async receiveList(socket: Socket, listener: (list: any) => void){
-        socket.on("receiveList", (list) => listener(list));
+    public async appendListToQuestions(socket: Socket){
+        socket.emit("appendListToQuestions");
+    }
+
+    public async setQuestionList(socket: Socket, listener: (data: any) => void){
+        socket.on("setQuestionList", (data) => listener(data));
+    }
+
+    public async getOrder(socket: Socket){
+        socket.emit("getOrder");
+    }
+
+    public async generateOrder(socket: Socket, listener: (order: any) => void){
+        socket.on("generateOrder", (order) => listener(order));
     }
 }
 

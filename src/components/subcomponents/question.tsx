@@ -7,10 +7,11 @@ import { modifyMode, modifyQuestions } from '../../store/process';
 
 type Props = {
     currentGame: IGame;
-    dispatch: Dispatch<any>
+    modQuestion: (g: IGame) => (dispatch: DispatchType) => void;
+    modMode: (g: IGame) => (dispatch: DispatchType) => void;
 }
 
-export const Question: React.FC<Props> = ({currentGame, dispatch}) => {
+export const Question: React.FC<Props> = ({currentGame, modQuestion, modMode}) => {
     const [response, setResponse] = useState<string[]>([]);
     const [template, setTemplate] = useState('');
     const [submitted, setSubmitted] = useState(false);
@@ -29,16 +30,6 @@ export const Question: React.FC<Props> = ({currentGame, dispatch}) => {
                 alert(err);
             });
     }
-
-    const modQuestion = useCallback(
-        (g: IGame) => dispatch(modifyQuestions(g)),
-        [dispatch]
-    )
-
-    const modMode = useCallback(
-        (g: IGame) => dispatch(modifyMode(g)),
-        [dispatch]
-    )
 
     const splitTemp = template.split("*BLANK*");
 
@@ -71,7 +62,7 @@ export const Question: React.FC<Props> = ({currentGame, dispatch}) => {
 
         await gameService.receiveQuestion(socket, (question) => {
             const list = game.questions;
-            list.push({id: question.id, response: question.question});
+            list.push({id: question.id, response: question.question, houseItems: []});
             setGame({
                 ...game,
                 questions: _.cloneDeep(list)

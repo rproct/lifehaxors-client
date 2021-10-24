@@ -8,8 +8,7 @@ const initState: GameState = {
         players: Array<IPlayer>(),
         round: -1,
         mode: 'lobby',
-        questions: Array<IResponse>(),
-        houseItems: Array<string>(),
+        questions: Array<IQuestion>(),
         answers: Array<IResponse>()
     }
 }

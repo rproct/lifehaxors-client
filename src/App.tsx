@@ -8,6 +8,10 @@ import {RoomHandler} from './components/roomHandler';
 import { Lobby } from './components/lobby';
 import { Game } from './components/game';
 
+/**
+ * 
+ * @returns 
+ */
 function App() {
   const game: IGame = useSelector(
     (state: GameState) => state.game,
@@ -30,7 +34,7 @@ function App() {
 
   return (
     <div>
-      <h1>Lifehaxors Alpha</h1>
+      <h1>Lifehaxors Pre-Alpha</h1>
       {game.round === -1 && <RoomHandler currentGame={game} dispatch={dispatch}/>}
       {game.mode === 'lobby' && game.round === 0 && <Lobby currentGame={game} dispatch={dispatch}/>}
       {game.mode !== 'lobby' && game.round >= 1 && <Game currentGame={game} dispatch={dispatch}/>}
