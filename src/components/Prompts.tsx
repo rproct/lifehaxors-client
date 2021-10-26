@@ -5,6 +5,7 @@ import socketService from '../services/socketService';
 import { modifyMode, modifyQuestions } from '../store/process';
 import {Question, HouseItems} from './subcomponents';
 import _ from 'lodash'
+import { Answer } from './subcomponents/answer';
 
 type Props = {
     currentGame: IGame;
@@ -51,15 +52,15 @@ export const Prompts: React.FC<Props> = ({currentGame}) => {
     }, [])
 
     return(
-        <form>
+        <div>
             <h2>Question:</h2>
-            <span>{JSON.stringify(order)}</span>
             <p>{getQuestion?.response}</p>
             <p>This is what I have at my house:</p>
             <ul>{getList}</ul>
-            <p>What can I do?</p>
-            <textarea rows={10} cols={100}/>
-            <button>Submit</button>
-        </form>
+            {
+                socket?.id !== getQuestion?.id ? <Answer getQuestion={getQuestion} list={getQuestion?.houseItems} incre={incrementIndex}/> :
+                <p>This is your prompt. Hang in there, help is on the way!</p>
+            }
+        </div>
     )
 }
