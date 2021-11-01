@@ -633,3 +633,5 @@ FodyWeavers.xsd
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode,jetbrains+all,react,node
 # Local Netlify folder
 .netlify
+
+/build

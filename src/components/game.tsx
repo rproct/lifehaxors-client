@@ -26,7 +26,7 @@ export const Game: React.FC<Props> = ({currentGame, dispatch}) => {
         <div>
             {currentGame.mode === 'question' && <Question currentGame={currentGame} modQuestion={modQuestion} modMode={modMode}/>}
             {currentGame.mode === 'list' && <HouseItems currentGame={currentGame} modQuestion={modQuestion} modMode={modMode}/>}
-            {(currentGame.mode === 'answer' || currentGame.mode === 'vote') && <Prompts currentGame={currentGame}/>}
+            {(currentGame.mode === 'answer' || currentGame.mode === 'vote') && <Prompts currentGame={currentGame} dispatch={dispatch}/>}
         </div>
     )
 }

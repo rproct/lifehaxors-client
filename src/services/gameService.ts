@@ -73,6 +73,14 @@ class GameService {
     public async generateOrder(socket: Socket, listener: (order: any) => void){
         socket.on("generateOrder", (order) => listener(order));
     }
+
+    public async sendAnswer(socket: Socket, data: any){
+        socket.emit("sendAnswer", data);
+    }
+
+    public async receiveAnswer(socket: Socket, listener: (data: any) => void){
+        socket.on("receiveAnswer", (data) => listener(data));
+    }
 }
 
 export default new GameService();

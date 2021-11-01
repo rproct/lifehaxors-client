@@ -61,6 +61,14 @@ const reducer = (
                     mode: action.game.mode
                 }
             }
+        case actions.MODIFY_ANSWERS:
+            return{
+                ...state,
+                game: {
+                    ...state.game,
+                    answers: _.cloneDeep(action.game.answers)
+                }
+            }
     }
     return state;
 }

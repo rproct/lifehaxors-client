@@ -45,6 +45,15 @@ export function modifyMode(game: IGame){
     return simHttpReq(action);
 }
 
+export function modifyAnswers(game: IGame){
+    const action: GameAction = {
+        type: actions.MODIFY_ANSWERS,
+        game
+    }
+
+    return simHttpReq(action);
+}
+
 export function simHttpReq(action: GameAction){
     return (dispatch: DispatchType) => {
         setTimeout(() => {
