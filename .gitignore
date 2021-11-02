@@ -635,3 +635,5 @@ FodyWeavers.xsd
 .netlify
 
 /build
+
+build.zip
