@@ -95,7 +95,14 @@ export const Answer: React.FC<Props> = ({getQuestion, currentGame, dispatch, mod
         socket?.id !== getQuestion?.id ? 
         <form onSubmit={sendAnswer}>
             <p>What can I do? (Using at least 3 items in my home)</p>
-            <textarea onChange={textChangeHandler} rows={10} cols={100} disabled={submitted}/>
+            <textarea 
+                placeholder='Enter your solution'
+                onChange={textChangeHandler}
+                rows={10}
+                cols={100} 
+                disabled={submitted} 
+                onKeyPress={e => {if(e.key === 'Enter') e.preventDefault()}}
+            />
             <button type="submit" disabled={getCondition()}>Submit</button>
             <p>{currentGame.answers.length} === {currentGame.players.length - 1}</p>
             {/* <h3>{JSON.stringify(wordComp())} - {JSON.stringify(!submitted)} --&gt; {JSON.stringify(getCondition())}</h3> */}
