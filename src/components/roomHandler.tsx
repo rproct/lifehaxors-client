@@ -21,7 +21,7 @@ export const RoomHandler: React.FC<Props> = ({currentGame, dispatch}) => {
     }
 
     const roomChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
-        setRoom(e.currentTarget.value);
+        setRoom(e.currentTarget.value.toUpperCase());
     }
 
     const newRoom = React.useCallback(

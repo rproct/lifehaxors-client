@@ -100,7 +100,7 @@ export const Question: React.FC<Props> = ({currentGame, modQuestion, modMode}) =
                 })
             }
             <button type="submit" disabled={submitted}>Submit</button>
-            <h4>{JSON.stringify(game.questions)}</h4>
+            {/* <h4>{JSON.stringify(game.questions)}</h4> */}
         </form>
     )
 }

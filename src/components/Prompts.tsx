@@ -3,16 +3,16 @@ import { Dispatch } from 'redux';
 import gameService from '../services/gameService';
 import socketService from '../services/socketService';
 import { modifyAnswers, modifyMode, modifyQuestions } from '../store/process';
-import {Question, HouseItems} from './subcomponents';
+import {Answer, Voting} from './subcomponents';
 import _ from 'lodash'
-import { Answer } from './subcomponents/answer';
 
 type Props = {
     currentGame: IGame;
     dispatch: Dispatch<any>;
+    modMode: (g: IGame) => (dispatch: DispatchType) => void;
 }
 
-export const Prompts: React.FC<Props> = ({currentGame, dispatch}) => {
+export const Prompts: React.FC<Props> = ({currentGame, dispatch, modMode}) => {
     const [order, setOrder] = useState<any[]>([]);
     const [index, setIndex] = useState(0);
     const [isLoading, setLoading] = useState(false);
@@ -66,17 +66,21 @@ export const Prompts: React.FC<Props> = ({currentGame, dispatch}) => {
             <h2>Question:</h2>
             <p>{getQuestion?.response}</p>
             <p>This is what I have at my house:</p>
-            <p>{JSON.stringify(order)}</p>
             <ul>{getList}</ul>
             {
-                socket?.id !== getQuestion?.id ? <Answer 
+                currentGame.mode === 'answer' &&
+                <Answer 
                     getQuestion={getQuestion}
-                    list={getQuestion?.houseItems}
-                    incre={incrementIndex}
                     currentGame={currentGame}
-                    dispatch={dispatch}/> :
-                <p>This is your prompt. Hang in there, help is on the way!</p>
+                    dispatch={dispatch}
+                    modMode={modMode}
+                />
             }
+            {
+                currentGame.mode === 'vote' &&
+                <Voting currentGame={currentGame} dispatch={dispatch}/>
+            }
+            {/* <p>{JSON.stringify(order)}</p> */}
         </div>
     )
 }

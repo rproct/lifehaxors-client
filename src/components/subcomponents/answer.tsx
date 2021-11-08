@@ -8,13 +8,12 @@ import { modifyAnswers } from '../../store/process';
 
 type Props = {
     getQuestion: IQuestion | undefined;
-    list: any;
-    incre: () => void;
     currentGame: IGame;
     dispatch: Dispatch<any>;
+    modMode: (g: IGame) => (dispatch: DispatchType) => void;
 }
 
-export const Answer: React.FC<Props> = ({getQuestion, list, incre, currentGame, dispatch}) => {
+export const Answer: React.FC<Props> = ({getQuestion, currentGame, dispatch, modMode}) => {
     const [text, setText] = useState('');
     const [submitted, setSubmit] = useState(false);
     const [game, setGame] = useState<IGame>(currentGame);
@@ -35,18 +34,20 @@ export const Answer: React.FC<Props> = ({getQuestion, list, incre, currentGame, 
         let socket = socketService.getSocket()
         if(socket && getQuestion){
             let data = {id: socket.id, answer: text}
-            await gameService.sendAnswer(socket, data);
             setSubmit(true);
+            await gameService.sendAnswer(socket, data);
         }
     }
 
     const wordComp = () => {
-        if(getQuestion)
+        if(getQuestion){
+            const list = getQuestion.houseItems.map(item => item.toLowerCase())
             return 3 > text.split(' ').filter(
-                word => getQuestion.houseItems.includes(word)).filter(
+                word => list.includes(word.toLowerCase())).filter(
                     (value, index, self) => self.indexOf(value) === index
                 ).length;
-        return true;
+        }
+        return false;
     }
 
     const getAnswers = async () => {
@@ -63,9 +64,27 @@ export const Answer: React.FC<Props> = ({getQuestion, list, incre, currentGame, 
         })
     }
 
+    const toVote = () => {
+        if(currentGame.answers.length === currentGame.players.length - 1){
+            setGame({
+                ...game,
+                mode: 'vote'
+            })
+        }
+    }
+
+    const getCondition = () => {
+        // return (wordComp() || !submitted) && (wordComp() !== !submitted);
+        return wordComp() === !submitted;
+    }
+
     useEffect(() => {
-        console.log(game.answers)
+        toVote();
+    }, [currentGame])
+
+    useEffect(() => {
         modAns(game);
+        modMode(game);
     }, [game])
 
     useEffect(() => {
@@ -73,12 +92,15 @@ export const Answer: React.FC<Props> = ({getQuestion, list, incre, currentGame, 
     }, [socket])
 
     return(
+        socket?.id !== getQuestion?.id ? 
         <form onSubmit={sendAnswer}>
-            
             <p>What can I do? (Using at least 3 items in my home)</p>
-            <textarea onChange={textChangeHandler} rows={10} cols={100}/>
-            <button type="submit" disabled={wordComp() && !submitted}>Submit</button>
-            <p>{JSON.stringify(game.answers)}</p>
-        </form>
+            <textarea onChange={textChangeHandler} rows={10} cols={100} disabled={submitted}/>
+            <button type="submit" disabled={getCondition()}>Submit</button>
+            <p>{currentGame.answers.length} === {currentGame.players.length - 1}</p>
+            {/* <h3>{JSON.stringify(wordComp())} - {JSON.stringify(!submitted)} --&gt; {JSON.stringify(getCondition())}</h3> */}
+            {/* <p>{JSON.stringify(game.answers)}</p> */}
+        </form> :
+        <p>This is your prompt. Hang in there, help is on the way!</p>
     );
 }
