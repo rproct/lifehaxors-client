@@ -4,6 +4,7 @@ import { Dispatch } from 'redux';
 import gameService from '../../services/gameService';
 import socketService from '../../services/socketService';
 import { modifyMode, modifyQuestions } from '../../store/process';
+import {Timer} from './timer'
 
 type Props = {
     currentGame: IGame;
@@ -92,6 +93,7 @@ export const Question: React.FC<Props> = ({currentGame, modQuestion, modMode}) =
 
     return(
         <form onSubmit={sendQuestion}>
+            <Timer time={60}/>
             <h1>Question</h1>
             <span key={0}>{splitTemp[0]}</span>
             {

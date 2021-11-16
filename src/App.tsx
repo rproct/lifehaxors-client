@@ -7,6 +7,7 @@ import socketService from './services/socketService';
 import {RoomHandler} from './components/roomHandler';
 import { Lobby } from './components/lobby';
 import { Game } from './components/game';
+import {Timer} from './components/subcomponents/timer';
 
 /**
  * 

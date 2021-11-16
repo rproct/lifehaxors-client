@@ -5,6 +5,7 @@ import socketService from '../../services/socketService';
 import _ from 'lodash';
 import { Socket } from '../../../node_modules/socket.io-client/build';
 import { modifyAnswers } from '../../store/process';
+import {Timer} from './timer';
 
 type Props = {
     getQuestion: IQuestion | undefined;
@@ -41,7 +42,7 @@ export const Answer: React.FC<Props> = ({getQuestion, currentGame, dispatch, mod
 
     const wordComp = () => {
         if(getQuestion){
-            const list = getQuestion.houseItems.map(item => item.toLowerCase())
+            const list = getQuestion.houseItems.map(item => item.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ''))
             return 3 > text.split(' ').filter(
                 word => list.includes(word.toLowerCase())).filter(
                     (value, index, self) => self.indexOf(value) === index
@@ -92,22 +93,27 @@ export const Answer: React.FC<Props> = ({getQuestion, currentGame, dispatch, mod
     }, [socket])
 
     return(
-        socket?.id !== getQuestion?.id ? 
-        <form onSubmit={sendAnswer}>
-            <p>What can I do? (Using at least 3 items in my home)</p>
-            <textarea 
-                placeholder='Enter your solution'
-                onChange={textChangeHandler}
-                rows={10}
-                cols={100} 
-                disabled={submitted} 
-                onKeyPress={e => {if(e.key === 'Enter') e.preventDefault()}}
-            />
-            <button type="submit" disabled={getCondition()}>Submit</button>
-            <p>{currentGame.answers.length} === {currentGame.players.length - 1}</p>
-            {/* <h3>{JSON.stringify(wordComp())} - {JSON.stringify(!submitted)} --&gt; {JSON.stringify(getCondition())}</h3> */}
-            {/* <p>{JSON.stringify(game.answers)}</p> */}
-        </form> :
-        <p>This is your prompt. Hang in there, help is on the way!</p>
+        <div>
+            <Timer time={180}/>
+            {socket?.id !== getQuestion?.id ? 
+            <form onSubmit={sendAnswer}>
+
+                <p>What can I do? (Using at least 3 items in my home)</p>
+                <textarea 
+                    placeholder='Enter your solution'
+                    onChange={textChangeHandler}
+                    rows={10}
+                    cols={100} 
+                    disabled={submitted}
+                    //Character Limit
+                    onKeyPress={e => {if(e.key === 'Enter') e.preventDefault()}}
+                />
+                <button type="submit" disabled={getCondition()}>Submit</button>
+                <p>{currentGame.answers.length} === {currentGame.players.length - 1}</p>
+                {/* <h3>{JSON.stringify(wordComp())} - {JSON.stringify(!submitted)} --&gt; {JSON.stringify(getCondition())}</h3> */}
+                {/* <p>{JSON.stringify(game.answers)}</p> */}
+            </form> :
+            <p>This is your prompt. Hang in there, help is on the way!</p>}
+        </div>
     );
 }

@@ -3,6 +3,7 @@ import { Dispatch } from 'redux';
 import gameService from '../../services/gameService';
 import socketService from '../../services/socketService';
 import _ from 'lodash';
+import {Timer} from './timer'
 
 type Props = {
     currentGame: IGame;
@@ -90,6 +91,7 @@ export const HouseItems: React.FC<Props> = ({currentGame, modQuestion, modMode})
 
     return(
         <form onSubmit={submitItems}>
+            <Timer time={60}/>
             <h2>What are the six items in your house?</h2>
             {
                 response.map((item, index) => {

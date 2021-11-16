@@ -10,7 +10,7 @@ type Props = {
 }
 
 export const Voting: React.FC<Props> = ({currentGame, dispatch}) => {
-    const [ans, setAns] = useState();
+    const [ans, setAns] = useState<any []>();
 
     const selected = (ans: any) => {
         console.log(ans)
@@ -26,7 +26,7 @@ export const Voting: React.FC<Props> = ({currentGame, dispatch}) => {
 
     return(
         <ul>{
-            currentGame.answers.map((value) => <ClickableAns key={value.id} ans={value.response} selected={selected}/>) 
+            ans?.map((value) => <ClickableAns key={value.id} ans={value.response} selected={selected}/>) 
         }</ul>
     )
 }
