@@ -1,9 +1,7 @@
 import _ from 'lodash';
-import React, {useCallback, useEffect, useState} from 'react';
-import { Dispatch } from 'redux';
+import React, {useEffect, useState} from 'react';
 import gameService from '../../services/gameService';
 import socketService from '../../services/socketService';
-import { modifyMode, modifyQuestions } from '../../store/process';
 import {Timer} from './timer'
 
 type Props = {

@@ -1,19 +1,22 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Dispatch } from 'redux';
-import gameService from '../../services/gameService';
 import socketService from '../../services/socketService';
 import _ from 'lodash';
 
 type Props = {
     currentGame: IGame;
     dispatch: Dispatch<any>;
+    id: string | undefined;
 }
 
-export const Voting: React.FC<Props> = ({currentGame, dispatch}) => {
+export const Voting: React.FC<Props> = ({currentGame, dispatch, id}) => {
+    const socket = socketService.getSocket();
     const [ans, setAns] = useState<any []>();
 
     const selected = (ans: any) => {
-        console.log(ans)
+        if(id === socket){
+            console.log(ans)
+        }
     }
 
     useEffect(() => {
@@ -36,5 +39,5 @@ type subProps = {
     selected: (ans: any) => void; 
 }
 const ClickableAns: React.FC<subProps> = ({ans, selected}) => {
-    return(<li onClick={selected}>{ans}</li>)
+    return(<li onClick={() => selected(ans)}>{ans}</li>)
 }

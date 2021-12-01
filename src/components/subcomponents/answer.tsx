@@ -42,9 +42,10 @@ export const Answer: React.FC<Props> = ({getQuestion, currentGame, dispatch, mod
 
     const wordComp = () => {
         if(getQuestion){
-            const list = getQuestion.houseItems.map(item => item.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ''))
+            const regex = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
+            const list = getQuestion.houseItems.map(item => item.toLowerCase())
             return 3 > text.split(' ').filter(
-                word => list.includes(word.toLowerCase())).filter(
+                word => list.includes(word.toLowerCase().replace(regex, ''))).filter(
                     (value, index, self) => self.indexOf(value) === index
                 ).length;
         }

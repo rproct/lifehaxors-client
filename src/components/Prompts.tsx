@@ -1,8 +1,7 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Dispatch } from 'redux';
 import gameService from '../services/gameService';
 import socketService from '../services/socketService';
-import { modifyAnswers, modifyMode, modifyQuestions } from '../store/process';
 import {Answer, Voting} from './subcomponents';
 import _ from 'lodash'
 
@@ -78,7 +77,7 @@ export const Prompts: React.FC<Props> = ({currentGame, dispatch, modMode}) => {
             }
             {
                 currentGame.mode === 'vote' &&
-                <Voting currentGame={currentGame} dispatch={dispatch}/>
+                <Voting currentGame={currentGame} dispatch={dispatch} id={getQuestion?.id}/>
             }
             {/* <p>{JSON.stringify(order)}</p> */}
         </div>

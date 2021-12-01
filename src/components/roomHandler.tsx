@@ -1,5 +1,5 @@
-import _, { round } from 'lodash';
-import React, {useCallback, useEffect, useState} from 'react';
+import _ from 'lodash';
+import React, {useEffect, useState} from 'react';
 import { Dispatch } from 'redux';
 import gameService from '../services/gameService';
 import socketService from '../services/socketService';

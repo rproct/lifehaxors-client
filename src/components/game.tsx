@@ -1,7 +1,5 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback} from 'react';
 import { Dispatch } from 'redux';
-import gameService from '../services/gameService';
-import socketService from '../services/socketService';
 import { modifyMode, modifyQuestions } from '../store/process';
 import { Prompts } from './Prompts';
 import {Question, HouseItems} from './subcomponents';
