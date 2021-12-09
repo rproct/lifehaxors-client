@@ -13,7 +13,6 @@ type Props = {
 
 export const Prompts: React.FC<Props> = ({currentGame, dispatch, modMode}) => {
     const [order, setOrder] = useState<any[]>([]);
-    const [index, setIndex] = useState(0);
     const [isLoading, setLoading] = useState(false);
     const [getQuestion, setQuestion] = useState<IQuestion>();
     const [getList, setList] = useState<any>();
@@ -45,12 +44,12 @@ export const Prompts: React.FC<Props> = ({currentGame, dispatch, modMode}) => {
     }, [getQuestion])
 
     useEffect(() => {
-        setQuestion(currentGame.questions.find(quest => quest.id === order[index]));
-    }, [isLoading])
+        setQuestion(currentGame.questions.find(quest => quest.id === order[currentGame.index]));
+    }, [isLoading, currentGame.index])
 
-    const incrementIndex = () => {
-        setIndex(index + 1);
-    }
+    // const incrementIndex = () => {
+    //     setIndex(index + 1);
+    // }
 
     useEffect(() => {
         generateOrder();
@@ -77,7 +76,7 @@ export const Prompts: React.FC<Props> = ({currentGame, dispatch, modMode}) => {
             }
             {
                 currentGame.mode === 'vote' &&
-                <Voting currentGame={currentGame} dispatch={dispatch} id={getQuestion?.id}/>
+                <Voting currentGame={currentGame} dispatch={dispatch} id={getQuestion?.id} modMode={modMode}/>
             }
             {/* <p>{JSON.stringify(order)}</p> */}
         </div>

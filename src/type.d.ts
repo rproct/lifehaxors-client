@@ -5,6 +5,7 @@ interface IGame{
     mode: 'lobby' | 'question' | 'list' | 'answer' | 'vote';
     questions: IQuestion[];
     answers: IResponse[];
+    index: number;
 }
 
 interface IPlayer{

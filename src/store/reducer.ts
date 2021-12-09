@@ -9,7 +9,8 @@ const initState: GameState = {
         round: -1,
         mode: 'lobby',
         questions: Array<IQuestion>(),
-        answers: Array<IResponse>()
+        answers: Array<IResponse>(),
+        index: 0
     }
 }
 
@@ -67,6 +68,14 @@ const reducer = (
                 game: {
                     ...state.game,
                     answers: _.cloneDeep(action.game.answers)
+                }
+            }
+        case actions.INCREMENT_INDEX:
+            return{
+                ...state,
+                game: {
+                    ...state.game,
+                    index: action.game.index
                 }
             }
     }

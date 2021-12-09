@@ -37,7 +37,7 @@ function App() {
       {game.round === -1 && <RoomHandler currentGame={game} dispatch={dispatch}/>}
       {game.mode === 'lobby' && game.round === 0 && <Lobby currentGame={game} dispatch={dispatch}/>}
       {game.mode !== 'lobby' && game.round >= 1 && <Game currentGame={game} dispatch={dispatch}/>}
-      <h3>{JSON.stringify(game)}</h3>
+      {/* <h3>{JSON.stringify(game)}</h3> */}
     </div>
   );
 }

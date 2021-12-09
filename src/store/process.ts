@@ -54,6 +54,15 @@ export function modifyAnswers(game: IGame){
     return simHttpReq(action);
 }
 
+export function incrementIndex(game: IGame){
+    const action: GameAction = {
+        type: actions.INCREMENT_INDEX,
+        game
+    }
+
+    return simHttpReq(action);
+}
+
 export function simHttpReq(action: GameAction){
     return (dispatch: DispatchType) => {
         setTimeout(() => {

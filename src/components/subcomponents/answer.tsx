@@ -110,7 +110,7 @@ export const Answer: React.FC<Props> = ({getQuestion, currentGame, dispatch, mod
                     onKeyPress={e => {if(e.key === 'Enter') e.preventDefault()}}
                 />
                 <button type="submit" disabled={getCondition()}>Submit</button>
-                <p>{currentGame.answers.length} === {currentGame.players.length - 1}</p>
+                {/* <p>{currentGame.answers.length} === {currentGame.players.length - 1}</p> */}
                 {/* <h3>{JSON.stringify(wordComp())} - {JSON.stringify(!submitted)} --&gt; {JSON.stringify(getCondition())}</h3> */}
                 {/* <p>{JSON.stringify(game.answers)}</p> */}
             </form> :
