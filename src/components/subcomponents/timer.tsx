@@ -15,6 +15,6 @@ export const Timer: React.FC<Props> = ({time}) => {
     }, [seconds])
 
     return(
-        <h1>{seconds}</h1>
+        <h1 id="timer">{seconds}</h1>
     )
 }
