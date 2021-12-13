@@ -22,3 +22,9 @@ code {
   align-items: center;
   text-align: center;
 }
+.players{
+    list-style: none;
+}
+/*button:hover{
+    color:red;
+}*/
