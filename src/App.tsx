@@ -33,14 +33,17 @@ function App() {
 
   return (
     <div>
-      <h1>Lifehaxors Pre-Alpha</h1>
+    <header className='page-header'>
+      <img src='logoi.png' className='logo' alt='' /> 
+      <h1>Lifehaxors</h1>
+    </header>
       <div className='flex'>
       {game.round === -1 && <RoomHandler currentGame={game} dispatch={dispatch}/>}
       {game.mode === 'lobby' && game.round === 0 && <Lobby currentGame={game} dispatch={dispatch}/>}
       {game.mode !== 'lobby' && game.round >= 1 && <Game currentGame={game} dispatch={dispatch}/>}
       </div>
       {/* <h3>{JSON.stringify(game)}</h3> */}
-    </div>
+ </div>  
   );
 }
 
