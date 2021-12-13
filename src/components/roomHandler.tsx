@@ -93,12 +93,13 @@ export const RoomHandler: React.FC<Props> = ({currentGame, dispatch}) => {
     }, [game]);
 
     return(
-        <form onSubmit={room.length === 4 ? socketJoinRoom : socketCreateRoom}>
+        <form onSubmit={room.length === 4 ? socketJoinRoom : socketCreateRoom} id='stack'>
             <input
                 type="text"
                 id="name"
                 placeholder="Username"
                 onChange={nameChangeHandler}
+                className='margin1em'
             />
             <input
                 type="text"
@@ -107,9 +108,9 @@ export const RoomHandler: React.FC<Props> = ({currentGame, dispatch}) => {
                 onChange={roomChangeHandler}
                 maxLength={4}
                 disabled={name.length === 0}
+                className='margin1em'
             />
-            <button disabled={name.length === 0} type="submit">{room.length < 4 ? "Create Room" : "Join Room"}</button>
-            <h4>{name}, {room}</h4>
+            <button disabled={name.length === 0} type="submit" className='margin1em'>{room.length < 4 ? "Create Room" : "Join Room"}</button>
         </form>
     )
 }

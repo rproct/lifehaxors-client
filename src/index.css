@@ -22,3 +22,16 @@ code {
   align-items: center;
   text-align: center;
 }
+
+#stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.margin1em {
+  margin: 1em;
+}
+
+#columns {
+  column-count: 2;
+}

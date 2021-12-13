@@ -42,12 +42,13 @@ export const Answer: React.FC<Props> = ({getQuestion, currentGame, dispatch, mod
 
     const wordComp = () => {
         if(getQuestion){
-            const regex = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
-            const list = getQuestion.houseItems.map(item => item.toLowerCase())
-            return 3 > text.split(' ').filter(
-                word => list.includes(word.toLowerCase().replace(regex, ''))).filter(
-                    (value, index, self) => self.indexOf(value) === index
-                ).length;
+            // const regex = /[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g;
+            let count = 0;
+            const list = getQuestion.houseItems.map(item => {
+                if(text.toLowerCase().includes(item.toLowerCase()))
+                    count++;
+            })
+            return 3 > count;
         }
         return false;
     }
@@ -95,7 +96,7 @@ export const Answer: React.FC<Props> = ({getQuestion, currentGame, dispatch, mod
 
     return(
         <div>
-            <Timer time={180}/>
+            <Timer time={180} currentGame={game} modMode={modMode} newMode='vote'/>
             {socket?.id !== getQuestion?.id ? 
             <form onSubmit={sendAnswer}>
 
@@ -108,8 +109,10 @@ export const Answer: React.FC<Props> = ({getQuestion, currentGame, dispatch, mod
                     disabled={submitted}
                     //Character Limit
                     onKeyPress={e => {if(e.key === 'Enter') e.preventDefault()}}
+                    className='margin1em'
                 />
-                <button type="submit" disabled={getCondition()}>Submit</button>
+                <br/>
+                <button type="submit" disabled={getCondition()} className='margin1em'>Submit</button>
                 {/* <p>{currentGame.answers.length} === {currentGame.players.length - 1}</p> */}
                 {/* <h3>{JSON.stringify(wordComp())} - {JSON.stringify(!submitted)} --&gt; {JSON.stringify(getCondition())}</h3> */}
                 {/* <p>{JSON.stringify(game.answers)}</p> */}

@@ -90,20 +90,23 @@ export const HouseItems: React.FC<Props> = ({currentGame, modQuestion, modMode})
 
     return(
         <form onSubmit={submitItems}>
-            <Timer time={60}/>
+            <Timer time={60} currentGame={game} modMode={modMode} newMode='answer'/>
             <h2>What are the six items in your house?</h2>
-            {
-                response.map((item, index) => {
-                    return <span><input 
-                                    required 
-                                    placeholder={`Item ${index + 1}`} 
-                                    key={index}
-                                    onChange={event => inputChangeHandler(index, event)}
-                                    disabled={submitted}
-                                /><br/></span>
-                })
-            }
-            <button type="submit" disabled={submitted}>Submit</button>
+            <div id='columns'>
+                {
+                    response.map((item, index) => {
+                        return <span><input 
+                                        required 
+                                        placeholder={`Item ${index + 1}`} 
+                                        key={index}
+                                        onChange={event => inputChangeHandler(index, event)}
+                                        disabled={submitted}
+                                        className='margin1em'
+                                    /><br/></span>
+                    })
+                }
+            </div>
+            <button type="submit" disabled={submitted} className='margin1em'>Submit</button>
             {/* <h4>{playersReady}</h4> */}
             {/* <h4>{JSON.stringify(game.questions)}</h4> */}
         </form>

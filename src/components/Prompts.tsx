@@ -9,9 +9,10 @@ type Props = {
     currentGame: IGame;
     dispatch: Dispatch<any>;
     modMode: (g: IGame) => (dispatch: DispatchType) => void;
+    modPlayers: (g: IGame) => (dispatch: DispatchType) => void;
 }
 
-export const Prompts: React.FC<Props> = ({currentGame, dispatch, modMode}) => {
+export const Prompts: React.FC<Props> = ({currentGame, dispatch, modMode, modPlayers}) => {
     const [order, setOrder] = useState<any[]>([]);
     const [isLoading, setLoading] = useState(false);
     const [getQuestion, setQuestion] = useState<IQuestion>();
@@ -64,7 +65,7 @@ export const Prompts: React.FC<Props> = ({currentGame, dispatch, modMode}) => {
             <h2>Question:</h2>
             <p>{getQuestion?.response}</p>
             <p>This is what I have at my house:</p>
-            <ul>{getList}</ul>
+            <ul id='columns'>{getList}</ul>
             {
                 currentGame.mode === 'answer' &&
                 <Answer 
@@ -76,7 +77,7 @@ export const Prompts: React.FC<Props> = ({currentGame, dispatch, modMode}) => {
             }
             {
                 currentGame.mode === 'vote' &&
-                <Voting currentGame={currentGame} dispatch={dispatch} id={getQuestion?.id} modMode={modMode}/>
+                <Voting currentGame={currentGame} dispatch={dispatch} id={getQuestion?.id} modMode={modMode} modPlayers={modPlayers}/>
             }
             {/* <p>{JSON.stringify(order)}</p> */}
         </div>

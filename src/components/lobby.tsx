@@ -7,10 +7,11 @@ import _ from 'lodash';
 
 type Props = {
     currentGame: IGame;
-    dispatch: Dispatch<any>
+    dispatch: Dispatch<any>;
+    modPlayers: (g: IGame) => (dispatch: DispatchType) => void;
 }
 
-export const Lobby: React.FC<Props> = ({currentGame, dispatch}) => {
+export const Lobby: React.FC<Props> = ({currentGame, dispatch, modPlayers}) => {
     const [game, setGame] = useState<IGame>(_.cloneDeep(currentGame));
     const [subbed, setSubbed] = useState(false);
     const socket = socketService.getSocket();
@@ -56,11 +57,6 @@ export const Lobby: React.FC<Props> = ({currentGame, dispatch}) => {
         else
             return socket.id === currentGame.players[0].id;
     }
-
-    const modPlayers = useCallback(
-        (g: IGame) => dispatch(modifyPlayers(g)),
-        [dispatch]
-    )
 
     const incremRound = useCallback(
         (g: IGame) => dispatch(incrementRound(g)),

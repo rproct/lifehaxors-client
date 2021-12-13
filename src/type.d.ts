@@ -2,7 +2,7 @@ interface IGame{
     room: string;
     players: IPlayer[];
     round: number;
-    mode: 'lobby' | 'question' | 'list' | 'answer' | 'vote';
+    mode: 'lobby' | 'question' | 'list' | 'answer' | 'vote' | 'results';
     questions: IQuestion[];
     answers: IResponse[];
     index: number;

@@ -10,9 +10,10 @@ type Props = {
     dispatch: Dispatch<any>;
     id: string | undefined;
     modMode: (g: IGame) => (dispatch: DispatchType) => void;
+    modPlayers: (g: IGame) => (dispatch: DispatchType) => void;
 }
 
-export const Voting: React.FC<Props> = ({currentGame, dispatch, id, modMode}) => {
+export const Voting: React.FC<Props> = ({currentGame, dispatch, id, modMode, modPlayers}) => {
     const socket = socketService.getSocket();
     const [ans, setAns] = useState<any []>();
     const [game, setGame] = useState(currentGame);
@@ -27,12 +28,45 @@ export const Voting: React.FC<Props> = ({currentGame, dispatch, id, modMode}) =>
         [dispatch]
     )
 
-    const selected = async (player: string) => {
+    const selected = async (playerID: string) => {
         if(socket)
             if(id === socket.id){
-                console.log(player)
+                await gameService.sendAnswer(socket, {id: playerID});
+                const index = game.players.findIndex(player => player.id === playerID);
+                
             }
     }
+
+    const addScore = async () => {
+        if(!socket) return;
+
+        await gameService.receiveAnswer(socket, (data) => {
+            const playerID = data.data.id
+            const index = game.players.findIndex(player => player.id === playerID)
+            const players = game.players;
+            players[index].score += 100;
+            if(game.index + 1 === game.players.length)
+                setGame({
+                    ...game,
+                    players: players,
+                    mode: 'results',
+                    index: 0,
+                    answers: []
+                });
+            else
+                setGame({
+                    ...game,
+                    players: players,
+                    mode: 'answer',
+                    index: currentGame.index + 1,
+                    answers: []
+                });
+        })
+    }
+
+    useEffect(() => {
+        addScore();
+    }, [socket])
 
     useEffect(() => {
         let temp: any = [];
@@ -42,45 +76,19 @@ export const Voting: React.FC<Props> = ({currentGame, dispatch, id, modMode}) =>
         setAns(temp);
     }, [])
 
-    const startGame = async () => {
-        if(!socket) return;
-        
-        await gameService.emmitStartGame(socket);
-    }
-
-    const receiveStartComm = async () => {
-        if(!socket) return;
-
-        const signal = await gameService.onStartGame(socket);
-
-        if(signal){
-            setGame({...game,
-                answers: [],
-                mode: 'answer',
-                index: currentGame.index + 1
-            })
-        }
-    }
-
     useEffect(() => {
-        if(game.index === game.players.length){
-            window.location.reload()
-        }
-        incrIndex(game);
         modAns(game);
+        modPlayers(game);
+        incrIndex(game);
         modMode(game);
     }, [game])
 
-    useEffect(() => {
-        receiveStartComm();
-    })
-
     return(
         <div>
+            <h3>Suggestions{id === socket?.id && ' for you'}:</h3>
             <ul>{
                 ans?.map((value) => <ClickableAns key={value.id} ans={value.response} selected={selected} player={value.id}/>) 
             }</ul>
-            {id === socket?.id && <button onClick={startGame}>Next</button>}
         </div>
     )
 }

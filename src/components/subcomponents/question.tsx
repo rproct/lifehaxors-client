@@ -91,7 +91,7 @@ export const Question: React.FC<Props> = ({currentGame, modQuestion, modMode}) =
 
     return(
         <form onSubmit={sendQuestion}>
-            <Timer time={60}/>
+            <Timer time={60} currentGame={game} modMode={modMode} newMode='list'/>
             <h1>Question</h1>
             <span key={0}>{splitTemp[0]}</span>
             {
