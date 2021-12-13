@@ -86,7 +86,7 @@ export const Lobby: React.FC<Props> = ({currentGame, dispatch, modPlayers}) => {
 
     return(
         <div>
-            <ul>{playerList}</ul>
+            <ul className="players">{playerList}</ul>
             <h3>Room Code: {currentGame.room}</h3>
             {/*TODO: Reset the number of players back*/}
             {getSocketId() && <button disabled={currentGame.players.length < 3} onClick={startGame}>Start</button>}

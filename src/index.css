@@ -54,3 +54,9 @@ code {
 #columns {
   column-count: 2;
 }
+.players{
+    list-style: none;
+}
+/*button:hover{
+    color:red;
+}*/
