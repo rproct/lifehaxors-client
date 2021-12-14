@@ -85,8 +85,8 @@ export const Voting: React.FC<Props> = ({currentGame, dispatch, id, modMode, mod
 
     return(
         <div>
-            <h3>Suggestions{id === socket?.id && ' for you'}:</h3>
-            <ul>{
+            <h2>Suggestions{id === socket?.id && ' for you'}:</h2>
+            <ul className='players' id='suggestions'>{
                 ans?.map((value) => <ClickableAns key={value.id} ans={value.response} selected={selected} player={value.id}/>) 
             }</ul>
         </div>

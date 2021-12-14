@@ -105,11 +105,11 @@ export const Answer: React.FC<Props> = ({getQuestion, currentGame, dispatch, mod
                     placeholder='Enter your solution'
                     onChange={textChangeHandler}
                     rows={10}
-                    cols={100} 
+                    cols={50} 
                     disabled={submitted}
                     //Character Limit
                     onKeyPress={e => {if(e.key === 'Enter') e.preventDefault()}}
-                    className='margin1em'
+                    className='margin1em bolded-border'
                 />
                 <br/>
                 <button type="submit" disabled={getCondition()} className='margin1em'>Submit</button>

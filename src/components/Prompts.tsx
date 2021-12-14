@@ -65,7 +65,7 @@ export const Prompts: React.FC<Props> = ({currentGame, dispatch, modMode, modPla
             <h2>Question:</h2>
             <p>{getQuestion?.response}</p>
             <p>This is what I have at my house:</p>
-            <ul id='columns'>{getList}</ul>
+            <ul id='columns' className='players'>{getList}</ul>
             {
                 currentGame.mode === 'answer' &&
                 <Answer 

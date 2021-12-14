@@ -23,9 +23,9 @@ export const Timer: React.FC<Props> = ({time, currentGame, modMode, newMode}) =>
             })
     }, [seconds])
 
-    useEffect(() => {
-        modMode(game);
-    }, [game])
+    // useEffect(() => {
+    //     modMode(game);
+    // }, [game])
 
     return(
         <h1 id="timer">{seconds}</h1>

@@ -91,15 +91,20 @@ export const Question: React.FC<Props> = ({currentGame, modQuestion, modMode}) =
 
     return(
         <form onSubmit={sendQuestion}>
-            <Timer time={60} currentGame={game} modMode={modMode} newMode='list'/>
-            <h1>Question</h1>
-            <span key={0}>{splitTemp[0]}</span>
-            {
-                splitTemp.slice(1).map((t, index) => {
-                    return <span key={index}><input disabled={submitted} required key={index} onChange={event => inputChangeHandler(index, event)}/>{t}</span>
-                })
-            }
-            <button type="submit" disabled={submitted}>Submit</button>
+            <div className='flex-between'>
+                <h1>Question</h1>
+                <Timer time={60} currentGame={game} modMode={modMode} newMode='list'/>
+            </div>
+            <div id='question'>
+                <span key={0}>{splitTemp[0]}</span>
+                {
+                    splitTemp.slice(1).map((t, index) => {
+                        return <span key={index}><input disabled={submitted} required key={index} onChange={event => inputChangeHandler(index, event)}/>{t}</span>
+                    })
+                }
+            </div>
+            <br/>
+            <button className='no-border' type="submit" disabled={submitted}>Submit</button>
             {/* <h4>{JSON.stringify(game.questions)}</h4> */}
         </form>
     )

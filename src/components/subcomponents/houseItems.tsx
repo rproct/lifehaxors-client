@@ -90,8 +90,10 @@ export const HouseItems: React.FC<Props> = ({currentGame, modQuestion, modMode})
 
     return(
         <form onSubmit={submitItems}>
-            <Timer time={60} currentGame={game} modMode={modMode} newMode='answer'/>
-            <h2>What are the six items in your house?</h2>
+            <div className='flex-between'>
+                <h2>What are the six items in your house?</h2>
+                <Timer time={60} currentGame={game} modMode={modMode} newMode='answer'/>
+            </div>
             <div id='columns'>
                 {
                     response.map((item, index) => {

@@ -99,7 +99,7 @@ export const RoomHandler: React.FC<Props> = ({currentGame, dispatch}) => {
                 id="name"
                 placeholder="Username"
                 onChange={nameChangeHandler}
-                className='margin1em'
+                className='margin1em bolded-border'
             />
             <input
                 type="text"
@@ -108,9 +108,9 @@ export const RoomHandler: React.FC<Props> = ({currentGame, dispatch}) => {
                 onChange={roomChangeHandler}
                 maxLength={4}
                 disabled={name.length === 0}
-                className='margin1em'
+                className='margin1em bolded-border'
             />
-            <button disabled={name.length === 0} type="submit" className='margin1em'>{room.length < 4 ? "Create Room" : "Join Room"}</button>
+            <button disabled={name.length === 0} type="submit" className='margin1em no-border'>{room.length < 4 ? "Create Room" : "Join Room"}</button>
         </form>
     )
 }
